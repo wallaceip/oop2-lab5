@@ -12,7 +12,7 @@ public class SerializationRunner {
         System.out.println(event1);
 
         try {
-            runner.SerializeEvent(event1, EVENT_SERIALIZE_FILE);
+            runner.serializeEvent(event1, EVENT_SERIALIZE_FILE);
         } catch (IOException e){
             System.out.println("IOException: " + e.getMessage());
         }
@@ -20,7 +20,7 @@ public class SerializationRunner {
 
         Event event2 = null;
         try {
-            event2 = runner.DeserializeEvent(EVENT_SERIALIZE_FILE);
+            event2 = runner.deserializeEvent(EVENT_SERIALIZE_FILE);
         } catch (IOException e) {
             System.out.println("IOException: " + e.getMessage());
         } catch (ClassNotFoundException e) {
@@ -32,14 +32,14 @@ public class SerializationRunner {
 
     }
 
-    private void SerializeEvent(Event eventObj, String fileName) throws IOException {
+    private void serializeEvent(Event eventObj, String fileName) throws IOException {
             File file = new File(fileName);
         try (ObjectOutputStream objOut = new ObjectOutputStream(new FileOutputStream(file))) {
             objOut.writeObject(eventObj);
         }
     }
 
-    private Event DeserializeEvent(String fileName) throws IOException, ClassNotFoundException {
+    private Event deserializeEvent(String fileName) throws IOException, ClassNotFoundException {
         File file = new File(fileName);
         Event eventObj = null;
         try (ObjectInputStream objIn = new ObjectInputStream(new FileInputStream(file))) {
